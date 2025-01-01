@@ -8,6 +8,7 @@ from collections import deque, defaultdict
 import matplotlib.pyplot as plt
 import json
 from datetime import datetime
+from scipy.signal import find_peaks
 
 def smooth_points(points, kernel_size=3):
     if len(points) < kernel_size:
@@ -79,6 +80,47 @@ def get_hand_side(hand_landmarks):
     thumb_tip = hand_landmarks.landmark[4]
     index_base = hand_landmarks.landmark[5]
     return "Right" if thumb_tip.x < index_base.x else "Left"
+
+class WaveDetector:
+    def __init__(self, window_size=30, min_waves=3):
+        self.wrist_positions = deque(maxlen=window_size)
+        self.window_size = window_size
+        self.min_waves = min_waves
+        self.last_detection = None
+        self.cooldown = 0.5  # seconds
+        
+    def add_position(self, x, y):
+        self.wrist_positions.append((x, y))
+        
+    def detect_wave(self, current_time):
+        if len(self.wrist_positions) < self.window_size:
+            return False, 0.0
+            
+        if self.last_detection and (current_time - self.last_detection).total_seconds() < self.cooldown:
+            return False, 0.0
+            
+        x_coords = np.array([pos[0] for pos in self.wrist_positions])
+        
+        x_normalized = (x_coords - np.mean(x_coords)) / np.std(x_coords)
+        
+        peaks, _ = find_peaks(x_normalized, distance=5)
+        valleys, _ = find_peaks(-x_normalized, distance=5)
+        
+        if len(peaks) >= self.min_waves and len(valleys) >= self.min_waves:
+            peak_values = x_normalized[peaks]
+            valley_values = x_normalized[valleys]
+            amplitude = np.mean(np.abs(peak_values)) + np.mean(np.abs(valley_values))
+            
+            time_points = np.linspace(0, 1, len(x_normalized))
+            peak_times = time_points[peaks]
+            frequency = len(peaks) / (time_points[-1] - time_points[0])
+            confidence = min(1.0, (amplitude * frequency) / 4.0)
+            
+            if confidence > 0.6:
+                self.last_detection = current_time
+                return True, confidence
+                
+        return False, 0.0
 
 class CameraRouter():
     def __init__(self, params: dict):
@@ -178,6 +220,10 @@ class CameraRouter():
             16: "Ring",
             20: "Pinky"
         }
+
+        wave_detector = WaveDetector()
+
+        hand_landmarks = None  # Ensure variable is declared before loop
 
         while cap.isOpened():
             success, frame = cap.read()
@@ -376,6 +422,27 @@ class CameraRouter():
                                     (int(hand_wrist.x * frame_width), int(hand_wrist.y * frame_height)),
                                     (int(right_wrist.x * frame_width), int(right_wrist.y * frame_height)),
                                     (0, 255, 0), 2)
+
+            if hand_landmarks:
+                wrist_landmark = hand_landmarks.landmark[mp_hands.HandLandmark.WRIST]
+                frame_height, frame_width = frame.shape[:2]
+                wrist_x = wrist_landmark.x * frame_width
+                wrist_y = wrist_landmark.y * frame_height
+                
+                wave_detector.add_position(wrist_x, wrist_y)
+                is_waving, wave_confidence = wave_detector.detect_wave(datetime.now())
+                
+                if is_waving:
+                    cv2.putText(
+                        frame,
+                        f"Wave detected! ({wave_confidence:.2f})",
+                        (10, text_y),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        1,
+                        (0, 255, 255),
+                        2
+                    )
+                    text_y += 30
 
             cv2.putText(frame, f'FPS: {int(fps)}', (10,30), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
