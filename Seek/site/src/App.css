@@ -1,0 +1,135 @@
+:root {
+/* CSS HEX */
+--yinmn-blue: #355070ff;
+--chinese-violet: #6d597aff;
+--china-rose: #b56576ff;
+--light-coral: #e56b6fff;
+--buff: #eaac8bff;
+
+/* CSS HSL */
+--yinmn-blue: hsla(213, 36%, 32%, 1);
+--chinese-violet: hsla(276, 16%, 41%, 1);
+--china-rose: hsla(347, 35%, 55%, 1);
+--light-coral: hsla(358, 70%, 66%, 1);
+--buff: hsla(21, 69%, 73%, 1);
+
+/* Additional CSS gradients converted from SCSS variables */
+--gradient-top: linear-gradient(0deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-right: linear-gradient(90deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-bottom: linear-gradient(180deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-left: linear-gradient(270deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-top-right: linear-gradient(45deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-bottom-right: linear-gradient(135deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-top-left: linear-gradient(225deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-bottom-left: linear-gradient(315deg, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+--gradient-radial: radial-gradient(circle at center, var(--yinmn-blue), var(--chinese-violet), var(--china-rose), var(--light-coral), var(--buff));
+
+--gradient-yinmnblue: linear-gradient(135deg, var(--yinmn-blue), var(--buff));
+}
+
+.App {
+  background: var(--gradient-radial); /* Previously background-color: var(--gradient-radial) */
+  height: 100vh;
+  padding-top: 70px; /* Reserve header space */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: var(--yinmn-blue);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: var(--yinmn-blue);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Offset content from the fixed header without changing its size */
+.content {
+  margin-top: 70px; /* Reserve space for the fixed header */
+  height: calc(100vh - 70px);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  overflow: hidden;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: var(--yinmn-blue); /* Updated from var(--english-violet) */
+  color: var(--buff); /* Updated from var(--mint-green) */
+  z-index: 1000;
+}
+
+.console {
+  background-color: var(--yinmn-blue); /* Updated from var(--english-violet) */
+  color: var(--buff); /* Updated from var(--mint-green) */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  height: 70%;
+  max-width: 600px;
+  font-family: monospace;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.console-input-area input[type="text"] {
+  background-color: var(--yinmn-blue); /* Updated from var(--english-violet) */
+  color: var(--buff); /* Updated from var(--mint-green) */
+  border-bottom: 1px solid var(--buff); /* Updated from var(--mint-green) */
+}
+
+.root-idea-header {
+  background-color: var(--yinmn-blue); /* Updated from var(--english-violet) */
+  color: var(--buff); /* Updated from var(--mint-green) */
+  border: 1px solid var(--china-rose); /* Updated from var(--glaucous) */
+}
+
+.root-idea-header:hover {
+  background-color: var(--chinese-violet); /* Updated from var(--ultra-violet) */
+}
+
+.sub-idea {
+  border: 1px solid var(--china-rose); /* Updated from var(--glaucous) */
+}

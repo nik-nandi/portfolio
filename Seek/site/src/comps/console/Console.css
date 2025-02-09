@@ -1,0 +1,88 @@
+.console {
+  background-color: var(--chinese-violet);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  height: 70%;
+  max-width: 600px;
+  font-family: monospace;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.console-messages {
+  flex-grow: 1; /* Take up remaining vertical space */
+  overflow-y: auto; /* Enable vertical scrolling */
+  text-align: left; /* Default alignment */
+  padding-bottom: 0; /* Remove bottom padding so messages touch the input */
+}
+
+.console-message {
+  margin-bottom: 5px; /* Space between messages */
+  padding: 5px;
+  border-bottom: 1px solid #ffffff; /* Separator between messages */
+}
+
+/* Align user messages to the right */
+.console-message.user {
+  text-align: right;
+}
+
+/* Align response messages to the left */
+.console-message.response {
+  text-align: left;
+}
+
+.console-message.error {
+  color: red;
+}
+
+.console-message.success {
+  color: green;
+}
+
+.console-input-area {
+  display: flex; /* Use flexbox to align input and button */
+  gap: 0; /* Remove gap so the input appears directly at the bottom */
+  /* Round only the bottom corners */
+  border-radius: 0 0 10px 10px;
+}
+
+/* Add transition effects to the input for smooth border/background changes */
+.console-input-area input[type="text"] {
+  background-color: var(--china-rose);
+  border-radius: 10px 10px 10px 10px;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 16px;
+  outline: none;
+  border-bottom: 1px solid white;
+  flex-grow: 1; /* Let the input take up remaining space */
+  transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+.loading-spinner {
+  width: 12px;
+  height: 12px;
+  border: 3px solid #f3f3f3;
+  border-top: 2px solid #000000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.console-message.loading {
+  display: flex;
+  align-items: center;
+}

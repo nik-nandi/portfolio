@@ -1,0 +1,23 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the logo */
+  padding: 10px 15px;
+  background-color: var(--gradient-yinmnblue-buff);
+  color: var(--yinmn-blue);
+  z-index: 1000;
+}
+
+.header-title {
+  font-size: 20px; /* slightly smaller title font size */
+  font-weight: bold;
+}
+
+.header-logo {
+  max-height: 50px; /* adjust as needed */
+  width: auto;
+}
