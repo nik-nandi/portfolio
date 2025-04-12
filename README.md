@@ -24,7 +24,7 @@ Welcome to my professional portfolio! This repository showcases a collection of 
 </div>
 
 ```
-├── AgenticSite/              # React-based website project
+Paper on Marine Lamprey EcosystemsPaper on Ecosystem FunctionsPaper on Ecosystem Functions├── AgenticSite/              # React-based website project
 │   ├── public/               # Static files and assets
 │   ├── src/                  # Source code 
 │   │   ├── components/       # UI components including DarkModeToggle, MathRenderer, etc.
@@ -53,8 +53,8 @@ Welcome to my professional portfolio! This repository showcases a collection of 
 │   └── range_kutta_de_solver.py # Runge-Kutta DE implementation
 │
 └── Documentation/            # Project documentation
-    ├── Modeling_1.pdf        # Document on modeling methodology
-    ├── Modeling_2.pdf        # Extended modeling techniques document
+    ├── Modeling_1.pdf        # Paper on Ecosystem Functions
+    ├── Modeling_2.pdf        # Paper on Marine Lamprey Ecosystems
     └── WhitePaper_RAGSen.pdf # Technical whitepaper on RAG system
 ```
 
