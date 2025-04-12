@@ -3,7 +3,7 @@
 
 <div align="center">
 
-![Portfolio Banner](https://img.shields.io/badge/Full--Stack-Developer-blue?style=for-the-badge)
+[![Portfolio Banner](https://img.shields.io/badge/Full--Stack-Developer-blue?style=for-the-badge)
 [![Last Updated](https://img.shields.io/badge/Last%20Updated-April%202025-brightgreen?style=flat-square)](https://github.com/nik/portfolio)
 [![Technologies](https://img.shields.io/badge/Technologies-React%20|%20Python%20|%20ML-orange?style=flat-square)](https://github.com/nik/portfolio)
 
