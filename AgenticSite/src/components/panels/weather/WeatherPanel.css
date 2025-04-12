@@ -1,0 +1,397 @@
+/* Weather Panel Styles */
+:root {
+  --apricot: #ffcdb2ff;
+  --melon: #ffb4a2ff;
+  --salmon-pink: #e5989bff;
+  --old-rose: #b5838dff;
+  --dim-gray: #6d6875ff;
+  
+  /* Dark mode variants */
+  --dark-bg-primary: #1a1a1a;
+  --dark-bg-secondary: #2a2a2a;
+  --dark-text: #f0f0f0;
+  --dark-accent: #ffb4a2ff;
+  --dark-highlight: #e5989bff;
+}
+
+.weather-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-panel.light {
+  background-image: linear-gradient(to bottom right, var(--apricot), #ffffff);
+}
+
+.weather-panel.dark {
+  background-image: linear-gradient(to bottom right, #433740, #2a2a2a);
+  color: var(--dark-text);
+}
+
+.weather-header {
+  background-color: var(--salmon-pink);
+  background-image: linear-gradient(to right, var(--salmon-pink), var(--melon));
+}
+
+.weather-panel.dark .weather-header {
+  background-color: var(--dark-bg-secondary);
+  background-image: linear-gradient(to right, #544048, var(--dim-gray));
+}
+
+.weather-content {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.weather-location {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--dim-gray);
+  text-align: center;
+}
+
+.weather-panel.dark .weather-location {
+  color: var(--melon);
+}
+
+.current-weather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 0;
+}
+
+.weather-icon {
+  font-size: 2.5rem;
+  margin-right: 15px;
+  text-shadow: 0 0 10px rgba(181, 131, 141, 0.3); /* old-rose with opacity */
+}
+
+.weather-panel.dark .weather-icon {
+  text-shadow: 0 0 10px rgba(255, 180, 162, 0.4); /* melon with opacity */
+}
+
+.weather-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.temperature {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--old-rose);
+  line-height: 1;
+}
+
+.weather-panel.dark .temperature {
+  color: var(--melon);
+}
+
+.condition {
+  font-size: 0.9rem;
+  color: var(--dim-gray);
+  margin-top: 3px;
+}
+
+.weather-panel.dark .condition {
+  color: #d4d4d4;
+}
+
+.weather-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(255, 205, 178, 0.2); /* apricot with opacity */
+  border-radius: 8px;
+}
+
+.weather-panel.dark .weather-metrics {
+  background-color: rgba(109, 104, 117, 0.25); /* dim-gray with opacity */
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: var(--dim-gray);
+  margin-bottom: 2px;
+}
+
+.weather-panel.dark .metric-label {
+  color: #b0b0b0;
+}
+
+.metric-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--old-rose);
+}
+
+.weather-panel.dark .metric-value {
+  color: var(--melon);
+}
+
+.forecast {
+  margin-top: 15px;
+  overflow: hidden;
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+.forecast-title {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-align: center;
+  color: var(--dim-gray);
+  border-bottom: 1px solid var(--melon);
+  padding-bottom: 5px;
+}
+
+.weather-panel.dark .forecast-title {
+  color: var(--melon);
+  border-bottom-color: #544048;
+}
+
+.forecast-days {
+  display: flex;
+  justify-content: space-around;
+  gap: 5px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.forecast-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: rgba(255, 180, 162, 0.15); /* melon with opacity */
+  min-width: 60px;
+}
+
+.weather-panel.dark .forecast-day {
+  background-color: rgba(109, 104, 117, 0.3); /* dim-gray with opacity */
+}
+
+.day-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--dim-gray);
+}
+
+.weather-panel.dark .day-name {
+  color: #d4d4d4;
+}
+
+.day-icon {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.day-temp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+}
+
+.high {
+  color: var(--old-rose);
+  font-weight: 600;
+}
+
+.weather-panel.dark .high {
+  color: var(--melon);
+}
+
+.low {
+  color: var(--dim-gray);
+}
+
+.weather-panel.dark .low {
+  color: #a0a0a0;
+}
+
+/* Loading animation */
+.weather-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.loading-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--salmon-pink);
+}
+
+.weather-panel.dark .loading-icon {
+  color: var(--melon);
+}
+
+.weather-panel.dark .weather-loading p {
+  color: #d4d4d4;
+}
+
+/* Weather transitions and animations */
+.weather-panel .messages-container {
+  transition: all 0.3s ease;
+}
+
+/* Shimmer effect for loading state */
+.weather-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 180, 162, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+.weather-panel.dark .weather-loading::after {
+  background: linear-gradient(
+    90deg,
+    rgba(42, 42, 42, 0) 0%,
+    rgba(229, 152, 155, 0.2) 50%,
+    rgba(42, 42, 42, 0) 100%
+  );
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Reduce gap in weather panel when expanded */
+.weather-panel.expanded .messages-container.expanded .weather-content {
+  margin-top: 3px;
+  margin-bottom: 0; /* Remove bottom margin */
+  padding-bottom: 0; /* Ensure no padding at bottom */
+}
+
+/* Fix bottom spacing in forecast section */
+.weather-panel .forecast {
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+/* Ensure forecast is the last element and has no bottom margin */
+.weather-panel .forecast-days {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Make weather content fill available space */
+.weather-panel.expanded .messages-container.expanded {
+  display: flex;
+  flex-direction: column;
+  height: auto; /* Allow height to adjust to content */
+  max-height: fit-content; /* Prevent excess space */
+  overflow: visible; /* Ensure content isn't cut off */
+}
+
+/* Specifically target expanded and pinned panel to ensure no dead space */
+.weather-panel.expanded.pinned .messages-container.expanded {
+  min-height: 0; /* Reset any min-height that might be causing issues */
+  flex-basis: auto; /* Use auto to let content determine size */
+}
+
+.weather-panel.expanded .weather-content {
+  flex: 0 1 auto; /* Don't force flex growth */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 0;
+  min-height: 0; /* Allow content to determine height */
+}
+
+/* Adjust spacing for the last element in the container to remove dead space */
+.weather-panel.expanded .weather-content > *:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Specifically target the weather graph container to ensure it doesn't add space */
+.weather-panel.expanded .weather-graph-container {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  flex-shrink: 1; /* Allow the graph to shrink if needed */
+}
+
+/* Ensure any graph elements don't add extra space */
+.weather-panel.expanded .graph-wrapper {
+  margin-bottom: 0;
+}
+
+/* Error and loading states should also not have bottom gap */
+.weather-panel .weather-loading,
+.weather-panel .weather-error {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Adjust WeatherGraph container to not add extra space */
+.weather-panel.expanded .weather-graph-container {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Error and loading states should also not have bottom gap */
+.weather-panel .weather-loading,
+.weather-panel .weather-error {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .weather-icon {
+    font-size: 2rem;
+  }
+  
+  .temperature {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .forecast-days {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .forecast-day {
+    flex: 1 1 calc(33.33% - 10px);
+    min-width: 50px;
+  }
+}

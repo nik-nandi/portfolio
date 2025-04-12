@@ -1,0 +1,523 @@
+/* News Panel Styles */
+:root {
+  /* News panel accent colors - Caribbean theme */
+  --news-accent: rgb(184, 249, 255);       /* Caribbean Current - main accent color */
+  --news-secondary: #83c5beff;    /* Tiffany Blue - secondary accent */
+  --news-highlight: #e29578ff;    /* Atomic Tangerine - highlights */
+  --news-text: #006d77ff;         /* Caribbean Current - text color */
+  --news-bg: #edf6f9ff;           /* Alice Blue - background color */
+  --news-hover: #ffddd2ff;        /* Pale Dogwood - hover states */
+  
+  /* Dark mode variants - Neutral Elegant theme (updated) */
+  --news-dark-accent: #425664ff;    /* Charcoal Blue - accent color */
+  --news-dark-secondary: #2d3748ff; /* Slate Gray - secondary color */
+  --news-dark-highlight: #718096ff; /* Cool Gray - highlight color */
+  --news-dark-text: #e2e8f0ff;      /* Light Silver - text color */
+  --news-dark-bg: #1a202cff;        /* Dark Slate - background */
+  --news-dark-hover: #4a5568aa;     /* Gray with opacity - hover */
+}
+
+.news-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.news-panel.light {
+  background-image: linear-gradient(to bottom right, var(--news-secondary), var(--news-bg));
+}
+
+.news-panel.dark {
+  background-image: linear-gradient(to bottom right, var(--news-dark-secondary), var(--news-dark-bg));
+  color: var(--news-dark-text);
+}
+
+.news-header {
+  background-color: var(--news-accent);
+  background-image: linear-gradient(to right, var(--news-accent), var(--news-highlight));
+  color: white;
+}
+
+.news-panel.dark .news-header {
+  background-color: var(--news-dark-accent);
+  background-image: linear-gradient(to right, var(--news-dark-accent), var(--news-dark-highlight));
+}
+
+.news-content {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Mini view styles - vertical list */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.news-item {
+  padding: 8px;
+  border-radius: 8px;
+  background-color: rgba(131, 197, 190, 0.15); /* Tiffany blue with opacity */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.news-panel.dark .news-item {
+  background-color: rgba(45, 55, 72, 0.25); /* Slate Gray with opacity */
+}
+
+.news-item:hover {
+  background-color: rgba(255, 221, 210, 0.4); /* Pale dogwood with opacity */
+  transform: translateY(-2px);
+}
+
+.news-panel.dark .news-item:hover {
+  background-color: rgba(113, 128, 150, 0.3); /* Cool Gray with opacity */
+}
+
+.news-title {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--news-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+/* Letter-by-letter glow wave effect for mini view titles */
+.news-list .news-title .glow-letter {
+  display: inline-block;
+  animation: letterGlowWave 12s infinite ease-in-out; /* Increased from 6s to 12s */
+  position: relative;
+  z-index: 1;
+}
+
+/* Remove the nth-child selectors as we'll handle delays in JavaScript */
+
+.news-panel.dark .news-list .news-title .glow-letter {
+  text-shadow: none; /* Reset shadow for dark mode initial state */
+}
+
+@keyframes letterGlowWave {
+  0%, 100% {
+    color: inherit;
+    text-shadow: none;
+  }
+  8% { /* Adjusted from 10% to 8% to slow the onset */
+    color: #e29578;
+    text-shadow: 0 0 8px rgba(226, 149, 120, 0.8);
+  }
+  16% { /* Adjusted from 20% to 16% to extend the glow */
+    color: inherit;
+    text-shadow: none;
+  }
+}
+
+.news-panel.dark .news-list .news-title .glow-letter {
+  animation-name: letterGlowWaveDark;
+}
+
+@keyframes letterGlowWaveDark {
+  0%, 100% {
+    color: inherit;
+    text-shadow: none;
+  }
+  8% { /* Adjusted from 10% to 8% to slow the onset */
+    color: #e29578;
+    text-shadow: 0 0 8px rgba(226, 149, 120, 0.6);
+  }
+  16% { /* Adjusted from 20% to 16% to extend the glow */
+    color: inherit;
+    text-shadow: none;
+  }
+}
+
+.news-title:hover {
+  color: var(--news-highlight);
+}
+
+.news-panel.dark .news-title {
+  color: var(--news-dark-text);
+}
+
+.news-panel.dark .news-title:hover {
+  color: var(--news-dark-highlight);
+}
+
+/* Expanded view styles - horizontal grid */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; /* Reduced from 12px */
+  height: 100%;
+  overflow-y: auto;
+  max-height: calc(70vh - 46px); /* Adjusted to reduce bottom gap */
+  padding: 0 5px 0 5px; /* Remove bottom padding */
+}
+
+.news-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.news-grid::-webkit-scrollbar-track {
+  background: rgba(164, 197, 176, 0.1);
+  border-radius: 3px;
+}
+
+.news-grid::-webkit-scrollbar-thumb {
+  background: var(--news-secondary);
+  border-radius: 3px;
+}
+
+.news-panel.dark .news-grid::-webkit-scrollbar-thumb {
+  background: var(--news-dark-accent);
+}
+
+/* When expanded, allow scrollable content */
+.news-panel.expanded .news-content {
+  max-height: unset;
+  overflow-y: visible;
+  padding-bottom: 0; /* Remove bottom padding completely */
+}
+
+/* Reduce gap in news panel when expanded */
+.news-panel.expanded .news-content {
+  padding-top: 2px;
+}
+
+/* Fix for last item in news list */
+.news-list > .news-item:last-child {
+  margin-bottom: 0; /* Remove margin from last item */
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px var(--border-color);
+  transition: all 0.3s ease;
+  height: 100%;
+  cursor: pointer;
+  background-color: rgba(237, 246, 249, 0.8); /* Alice blue with opacity */
+}
+
+.news-panel.dark .news-card {
+  background-color: rgba(45, 55, 72, 0.2); /* Slate Gray with opacity */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px var(--border-color);
+}
+
+.news-panel.dark .news-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background-color: rgba(66, 86, 100, 0.3); /* Charcoal Blue with opacity */
+}
+
+.article-image {
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.article-image:hover .article-details-button {
+  opacity: 1;
+}
+
+.no-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: var(--news-secondary);
+  font-size: 2rem;
+}
+
+.news-panel.dark .no-image {
+  background-color: var(--news-dark-secondary);
+}
+
+.article-content {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-title {
+  margin: 0 0 8px 0;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-tight);
+  color: var(--news-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.article-title:hover {
+  color: var(--news-highlight);
+}
+
+.news-panel.dark .article-title {
+  color: var(--news-dark-text);
+}
+
+.news-panel.dark .article-title:hover {
+  color: var(--news-dark-highlight);
+}
+
+.article-description {
+  font-size: var(--font-size-xs);
+  color: var(--news-text);
+  margin: 0 0 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  flex: 1;
+}
+
+.news-panel.dark .article-description {
+  color: rgba(226, 232, 240, 0.85); /* Light Silver with opacity for better readability */
+}
+
+.article-date {
+  font-size: var(--font-size-xs);
+  color: var(--news-accent);
+  margin: 0;
+  text-align: right;
+  font-style: italic;
+}
+
+.news-panel.dark .article-date {
+  color: var(--news-dark-highlight);
+}
+
+/* Article details button */
+.article-details-button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 109, 119, 0.8); /* Caribbean Current with opacity */
+  color: white;
+  text-align: center;
+  padding: 5px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.news-panel.dark .article-details-button {
+  background-color: rgba(66, 86, 100, 0.8); /* Charcoal Blue with opacity */
+}
+
+.article-details-button:hover {
+  background-color: rgba(0, 109, 119, 1); /* Solid Caribbean Current */
+}
+
+.news-panel.dark .article-details-button:hover {
+  background-color: rgba(113, 128, 150, 0.9); /* Almost solid Cool Gray */
+}
+
+/* Updated article footer with read more button */
+.article-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.read-more-btn {
+  background-color: var(--news-accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.read-more-btn:hover {
+  background-color: var(--news-highlight);
+}
+
+.news-panel.dark .read-more-btn {
+  background-color: var(--news-dark-accent);
+}
+
+.news-panel.dark .read-more-btn:hover {
+  background-color: var(--news-dark-highlight);
+}
+
+/* Loading animation */
+.news-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.loading-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--news-accent);
+}
+
+.news-panel.dark .loading-icon {
+  color: var(--news-dark-highlight);
+}
+
+/* Shimmer effect for loading state */
+.news-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.news-loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(131, 197, 190, 0.3) 50%, /* Tiffany blue with opacity */
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+.news-panel.dark .news-loading::after {
+  background: linear-gradient(
+    90deg,
+    rgba(26, 32, 44, 0) 0%,
+    rgba(226, 232, 240, 0.2) 50%, /* Light Silver with opacity */
+    rgba(26, 32, 44, 0) 100%
+  );
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Error state */
+.news-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.news-error p {
+  margin-bottom: 15px;
+  color: var(--news-accent);
+}
+
+.news-panel.dark .news-error p {
+  color: var(--news-dark-highlight);
+}
+
+.news-error button {
+  background-color: var(--news-accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.news-error button:hover {
+  background-color: var(--news-highlight);
+}
+
+.news-panel.dark .news-error button {
+  background-color: var(--news-dark-accent);
+}
+
+.news-panel.dark .news-error button:hover {
+  background-color: var(--news-dark-highlight);
+}
+
+/* Empty state */
+.news-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  color: var(--news-text);
+}
+
+.news-panel.dark .news-empty {
+  color: var(--news-dark-text);
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .article-image {
+    height: 100px;
+  }
+
+  /* Stack vertically on smaller screens when many items */
+  .news-panel.expanded .news-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .news-list {
+    gap: 6px;
+  }
+  
+  .news-item {
+    padding: 6px;
+  }
+
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+}

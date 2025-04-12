@@ -1,0 +1,325 @@
+.dark-mode-toggle-btn {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 0;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+  overflow: visible;
+  z-index: 10;
+}
+
+.toggle-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--bg-accent);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s, transform 0.3s, background-color 0.5s;
+}
+
+.dark-mode-toggle-btn:hover .toggle-background {
+  opacity: 0.8;
+  transform: scale(1);
+}
+
+.dark-mode-toggle-btn:hover {
+  transform: scale(1.1);
+}
+
+.dark-mode-toggle-btn:active {
+  transform: scale(0.9);
+}
+
+.toggle-icon-wrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Sun icon styles */
+.sun-icon {
+  position: absolute;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 0 2px rgba(255, 200, 0, 0));
+  transition: filter 0.5s, opacity 0.5s, transform 0.7s;
+}
+
+.light .sun-icon {
+  filter: drop-shadow(0 0 3px rgba(255, 200, 0, 0.4));
+}
+
+.sun-circle {
+  fill: var(--text-primary);
+  transition: fill 0.3s;
+}
+
+.sun-ray {
+  stroke: var(--text-primary);
+  transition: stroke 0.3s, opacity 0.3s, transform 0.5s;
+  transform-origin: center;
+}
+
+/* Moon icon styles */
+.moon-icon {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+  transition: opacity 0.5s, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 0 2px rgba(200, 220, 255, 0));
+  transition: filter 0.5s, opacity 0.5s, transform 0.7s;
+}
+
+.dark .moon-icon {
+  filter: drop-shadow(0 0 4px rgba(200, 220, 255, 0.5));
+}
+
+.moon-path {
+  fill: none;
+  stroke: var(--text-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.3s, stroke 0.3s;
+}
+
+/* Dark mode styles */
+.dark-mode-toggle-btn.dark .sun-icon {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+}
+
+.dark-mode-toggle-btn.dark .moon-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Enhancing animation for sun rays */
+.dark-mode-toggle-btn .sun-ray {
+  transform-origin: center;
+  animation: rayPulse 3s infinite alternate;
+}
+
+.dark-mode-toggle-btn.light:hover .sun-ray {
+  animation: rayPulseEnhanced 2s infinite alternate;
+}
+
+.dark-mode-toggle-btn .ray-1 { animation-delay: 0s; }
+.dark-mode-toggle-btn .ray-2 { animation-delay: 0.3s; }
+.dark-mode-toggle-btn .ray-3 { animation-delay: 0.6s; }
+.dark-mode-toggle-btn .ray-4 { animation-delay: 0.9s; }
+.dark-mode-toggle-btn .ray-5 { animation-delay: 1.2s; }
+.dark-mode-toggle-btn .ray-6 { animation-delay: 1.5s; }
+.dark-mode-toggle-btn .ray-7 { animation-delay: 1.8s; }
+.dark-mode-toggle-btn .ray-8 { animation-delay: 2.1s; }
+
+@keyframes rayPulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes rayPulseEnhanced {
+  0% {
+    opacity: 0.7;
+    transform: scaleY(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.1);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scaleY(0.9);
+  }
+}
+
+/* Enhanced dark mode moonlight animation */
+.dark-mode-toggle-btn.dark .moon-path {
+  animation: moonGlow 4s infinite alternate;
+}
+
+.dark-mode-toggle-btn.dark:hover .moon-path {
+  animation: moonGlowEnhanced 2s infinite alternate;
+}
+
+@keyframes moonGlow {
+  0% {
+    stroke-width: 2;
+  }
+  50% {
+    stroke-width: 2.5;
+  }
+  100% {
+    stroke-width: 2;
+  }
+}
+
+@keyframes moonGlowEnhanced {
+  0% {
+    stroke-width: 2;
+    stroke: var(--text-primary);
+  }
+  50% {
+    stroke-width: 3;
+    stroke: #e0e8ff;
+  }
+  100% {
+    stroke-width: 2;
+    stroke: var(--text-primary);
+  }
+}
+
+/* Particles styling and animation */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  opacity: 0;
+  background-color: var(--text-primary);
+  transform: scale(0);
+}
+
+.dark-mode-toggle-btn.light.animating .particle {
+  animation: particleLight 0.8s ease-out forwards;
+}
+
+.dark-mode-toggle-btn.dark.animating .particle {
+  animation: particleDark 0.8s ease-out forwards;
+}
+
+/* Position particles in a circle around the button */
+.particle-1 { top: 0; left: 50%; }
+.particle-2 { top: 14%; left: 85%; }
+.particle-3 { top: 50%; left: 100%; }
+.particle-4 { top: 85%; left: 85%; }
+.particle-5 { top: 100%; left: 50%; }
+.particle-6 { top: 85%; left: 14%; }
+.particle-7 { top: 50%; left: 0; }
+.particle-8 { top: 14%; left: 14%; }
+
+/* Slightly offset animation timing for particles */
+.particle-1 { animation-delay: 0s; }
+.particle-2 { animation-delay: 0.05s; }
+.particle-3 { animation-delay: 0.1s; }
+.particle-4 { animation-delay: 0.15s; }
+.particle-5 { animation-delay: 0.2s; }
+.particle-6 { animation-delay: 0.25s; }
+.particle-7 { animation-delay: 0.3s; }
+.particle-8 { animation-delay: 0.35s; }
+
+@keyframes particleLight {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(0);
+    background-color: #ffcc00;
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translateY(-15px) translateX(var(--particle-x, 0));
+    background-color: #fff5cc;
+  }
+}
+
+@keyframes particleDark {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(0);
+    background-color: #6b8cff;
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translateY(-15px) translateX(var(--particle-x, 0));
+    background-color: #b1c5ff;
+  }
+}
+
+/* Special animation for when the toggle is clicked */
+.dark-mode-toggle-btn.animating::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0.7;
+  animation: ripple 0.6s ease-out forwards;
+  z-index: 1;
+}
+
+.dark-mode-toggle-btn.dark.animating::after {
+  background: radial-gradient(
+    circle,
+    rgba(150, 180, 255, 0.8) 0%,
+    rgba(150, 180, 255, 0) 70%
+  );
+}
+
+.dark-mode-toggle-btn.light.animating::after {
+  background: radial-gradient(
+    circle,
+    rgba(255, 220, 150, 0.8) 0%,
+    rgba(255, 220, 150, 0) 70%
+  );
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}

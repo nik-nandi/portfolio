@@ -1,0 +1,135 @@
+.news-refresh-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.news-refresh-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.news-refresh-button.dark {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.news-refresh-button.dark:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.refresh-icon {
+  font-size: 14px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  color: var(--news-accent, rgb(184, 249, 255));
+}
+
+.refresh-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.refresh-button:active {
+  transform: scale(0.95);
+}
+
+.refresh-button.dark {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--news-accent, rgb(184, 249, 255));
+}
+
+.refresh-button.dark:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Animation for refreshing state */
+.refresh-button.refreshing .refresh-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ripple animation for button click */
+.refresh-button.refreshing:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0.7;
+  animation: refresh-ripple 0.6s ease-out forwards;
+  z-index: 1;
+}
+
+.refresh-button.dark.refreshing:after {
+  background: radial-gradient(
+    circle,
+    rgba(150, 180, 255, 0.4) 0%,
+    rgba(150, 180, 255, 0) 70%
+  );
+}
+
+@keyframes refresh-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Pulse animation for the icon when hovering */
+.refresh-button:hover .refresh-icon {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px var(--news-accent, rgb(184, 249, 255)));
+  }
+  50% {
+    filter: drop-shadow(0 0 3px var(--news-accent, rgb(184, 249, 255)));
+  }
+}

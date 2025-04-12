@@ -1,0 +1,413 @@
+/* Main panel specific styles */
+.main-chat {
+  background-color: var(--bg-secondary);
+  background-image: linear-gradient(
+    to bottom,
+    var(--bg-secondary) 0%,
+    rgba(var(--bg-accent-rgb), 0.05) 50%,
+    var(--bg-secondary) 100%
+  );
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--border-color);
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: var(--bg-accent);
+  background-image: linear-gradient(to right, var(--bg-accent), rgba(var(--accent-color), 0.1), var(--bg-accent));
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.new-chat-button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, filter 0.2s;
+}
+
+.new-chat-button:hover {
+  filter: brightness(1.1);
+}
+
+.new-chat-button:active {
+  transform: scale(0.95);
+}
+
+.messages-container {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.messages-container::-webkit-scrollbar {
+  display: none;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: var(--accent-color);
+  background-image: linear-gradient(135deg, var(--accent-color), var(--accent-color) 80%, rgba(var(--bg-accent-rgb), 0.3));
+  color: var(--bg-secondary);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-message {
+  background-color: var(--bg-accent);
+  background-image: linear-gradient(135deg, rgba(var(--bg-accent-rgb), 1.0), var(--bg-accent) 70%);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.ai-message:has(.structured-response) {
+  max-width: 85%;
+}
+
+.message.ai-message.new-message {
+  animation: fadeInScale 0.5s ease-out forwards;
+}
+
+.input-form {
+  display: flex;
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  background-image: linear-gradient(to bottom, rgba(var(--bg-accent-rgb), 0.3), var(--bg-secondary));
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.message-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  outline: none;
+  font-size: 1rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.message-input:focus {
+  border-color: var(--accent-color);
+}
+
+.send-button {
+  background-color: var(--accent-color);
+  background-image: linear-gradient(135deg, var(--accent-color), var(--accent-color) 60%, rgba(var(--accent-color), 0.8));
+  color: var(--bg-secondary);
+  border: none;
+  border-radius: 24px;
+  padding: 0 1.5rem;
+  margin-left: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
+}
+
+.send-button:hover {
+  filter: brightness(1.1);
+  background-image: linear-gradient(135deg, var(--accent-color), var(--accent-color));
+}
+
+/* Conversation ID tooltip styles */
+.conversation-id-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.conversation-id {
+  display: inline-block;
+}
+
+.conversation-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--bg-accent);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  margin-top: 5px;
+  border: 1px solid var(--border-color);
+}
+
+.conversation-id-container:hover .conversation-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* New Chat animation styles */
+.animation-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.new-chat-animation {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animation-circle {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg, 
+    var(--accent-color) 0%, 
+    rgba(var(--bg-accent-rgb), 0.7) 100%
+  );
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.animation-circle.secondary {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--bg-accent-rgb), 0.7) 0%,
+    var(--accent-color) 100%
+  );
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Model info styles */
+.model-info-container {
+  position: relative;
+  margin-top: 6px;
+  align-self: flex-end; /* Keep this to position at right */
+  margin-right: 8px;
+  z-index: 20; /* Add z-index to be higher than side panels */
+}
+
+.model-info-button {
+  background: linear-gradient(135deg, var(--bg-accent), rgba(var(--accent-color), 0.2));
+  border: 1px solid var(--border-color);
+  color: var(--accent-color);
+  opacity: 1;
+  cursor: pointer;
+  padding: 3px 6px;  /* Reduced from 6px 10px */
+  font-size: 0.8rem; /* Reduced from 0.9rem */
+  border-radius: 10px; /* Adjusted from 12px */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.model-info-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, var(--accent-color), #744b78);
+  color: var(--bg-secondary);
+}
+
+.info-icon {
+  display: inline-block;
+  width: 14px;        /* Reduced from 18px */
+  height: 14px;       /* Reduced from 18px */
+  text-align: center;
+  line-height: 14px;  /* Adjusted to match new height */
+  font-weight: bold;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.model-info-button:hover .info-icon {
+  transform: rotate(360deg);
+  transition: transform 0.5s ease;
+}
+
+.model-info-dropdown {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0; /* Keep right alignment */
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 220px;
+  border: 1px solid var(--border-color);
+  z-index: 20; /* Increased from 10 to be higher than expanded side panel's z-index of 15 */
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.model-info-content {
+  padding: 15px;
+}
+
+.model-info-header {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: var(--font-weight-medium);
+}
+
+.model-name {
+  font-size: 1rem;
+  color: var (--accent-color);
+  word-break: break-word;
+  padding: 6px 10px;
+  background: rgba(var(--bg-accent-rgb), 1);
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+/* Add styles for dark mode specifically */
+body.dark-mode .main-chat {
+  background-image: linear-gradient(to bottom, var(--bg-secondary), rgba(0, 0, 0, 0.2), var(--bg-secondary));
+}
+
+body.dark-mode .chat-header {
+  background-image: linear-gradient(to right, var(--bg-accent), rgba(0, 0, 0, 0.3), var(--bg-accent));
+}
+
+body.dark-mode .user-message {
+  background-image: linear-gradient(135deg, var(--accent-color), rgba(0, 0, 0, 0.3));
+}
+
+body.dark-mode .ai-message {
+  background-image: linear-gradient(135deg, var(--bg-accent), rgba(0, 0, 0, 0.3));
+}
+
+body.dark-mode .input-form {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), var(--bg-secondary));
+}
+
+body.dark-mode .send-button {
+  background-image: linear-gradient(135deg, var(--accent-color), rgba(0, 0, 0, 0.3));
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .main-chat {
+    height: 60vh;
+  }
+  
+  .message {
+    max-width: 85%;
+  }
+  
+  .input-form {
+    padding: 0.8rem;
+  }
+  
+  .message-input {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+  
+  .send-button {
+    padding: 0 1.2rem;
+  }
+}
+
+/* Styling for message lists */
+.message-list {
+  list-style-type: none;
+  padding-left: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.list-item {
+  position: relative;
+  padding: 4px 0 4px 1.5rem;
+  margin: 8px 0;
+  line-height: var(--line-height-normal);
+}
+
+.list-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Add some extra padding to structured responses with lists */
+.structured-response .response-section:has(.message-list) {
+  padding-bottom: 8px;
+}
+
+/* Add styling for italic text in messages */
+.message em {
+  font-style: italic;
+  color: inherit;
+}
+
+.ai-message em {
+  opacity: 0.85;
+}
+
+.structured-response em {
+  font-style: italic;
+}

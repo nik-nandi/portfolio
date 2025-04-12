@@ -1,0 +1,538 @@
+.info-text-box-container {
+  min-width: 280px;
+  max-width: 400px;
+  padding: 1rem;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+  margin-right: 20px; /* Increased margin to create more space */
+  z-index: 1;
+  align-self: flex-start; /* Ensure it aligns to the top */
+  position: relative; /* Ensure it uses normal document flow */
+}
+
+.info-text-box {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--border-color);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  resize: none;
+  border: 1px solid var(--border-color);
+  word-wrap: break-word; /* Ensure text wraps properly */
+  white-space: pre-wrap; /* Respect line breaks in text */
+  position: relative; /* For positioning animation elements */
+  will-change: transform, box-shadow;
+}
+
+/* Controls container for buttons */
+.info-box-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  z-index: 5;
+}
+
+/* Close button styling - updated positioning */
+.info-text-box .close-button {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+/* Minimize button styling */
+.info-text-box .minimize-button {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: rgba(255, 204, 0, 0.9);
+  color: #333;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.info-text-box:hover .close-button,
+.info-text-box:hover .minimize-button {
+  opacity: 1;
+}
+
+.info-text-box .minimize-button:hover {
+  background-color: rgb(255, 204, 0);
+  transform: scale(1.1);
+}
+
+/* Minimized state styling */
+.info-text-box.minimized {
+  overflow: hidden;
+}
+
+.info-text-box.minimized .content-wrapper {
+  overflow: hidden;
+}
+
+.info-text-box-container.minimized {
+  resize: none;
+}
+
+.info-text-box.minimized .fade-overlay,
+.info-text-box.minimized .content-toggle {
+  display: none;
+}
+
+/* Dark mode minimize button */
+body.dark-mode .info-text-box .minimize-button {
+  background-color: rgba(255, 204, 0, 0.8);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  color: #222;
+}
+
+body.dark-mode .info-text-box .minimize-button:hover {
+  background-color: rgb(255, 204, 0);
+}
+
+/* Content wrapper for height animation */
+.content-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  will-change: height;
+}
+
+/* No scrollbar when expanded */
+.info-text-box.expanded {
+  overflow-y: visible;
+}
+
+/* Truncated content styling */
+.truncated-content {
+  position: relative;
+  /* We don't need max-height here anymore as we're animating with Framer Motion */
+}
+
+/* Gradient fade overlay - positioned absolutely now */
+.fade-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--bg-secondary) 90%);
+  pointer-events: none;
+  z-index: 2;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+  visibility: visible; /* Ensure visibility */
+}
+
+body.dark-mode .fade-overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--bg-accent) 90%);
+}
+
+/* Show More/Less button */
+.content-toggle {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 8px;
+  border-top: 1px solid var(--border-color);
+  color: var(--accent-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  width: 100%; /* Ensure full width */
+  visibility: visible; /* Ensure visibility */
+  opacity: 1; /* Ensure opacity */
+}
+
+.content-toggle::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--accent-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  opacity: 0.7;
+}
+
+.content-toggle:hover {
+  color: var(--accent-hover);
+}
+
+.content-toggle:hover::before {
+  transform: scaleX(0.5);
+}
+
+/* Animation for the box when expanding/collapsing */
+.info-text-box.expanded {
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.2), 
+              0 2px 8px var(--border-color);
+  transform: translateY(-2px);
+}
+
+body.dark-mode .info-text-box.expanded {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 
+              0 0 15px rgba(var(--accent-rgb), 0.15);
+}
+
+/* No scrollbar when expanded */
+.info-text-box.no-scroll {
+  overflow-y: visible;
+  max-height: none;
+}
+
+/* Close button styling */
+.info-text-box .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.info-text-box:hover .close-button {
+  opacity: 1;
+}
+
+.info-text-box .close-button:hover {
+  background-color: rgb(220, 53, 69);
+  transform: scale(1.1);
+}
+
+.info-text-box .close-button:active {
+  transform: scale(0.95);
+}
+
+/* Dark mode close button */
+body.dark-mode .info-text-box .close-button {
+  background-color: rgba(255, 69, 79, 0.8);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .info-text-box .close-button:hover {
+  background-color: rgb(255, 69, 79);
+}
+
+/* Animation effects for text box */
+.info-text-box-container.animating .info-text-box {
+  box-shadow: 0 4px 20px var(--accent-color);
+  border-color: var(--accent-color);
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+  animation: pulse 0.8s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Text particles animation */
+.text-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.text-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  opacity: 0;
+  animation: particle-float 1s ease-out forwards;
+}
+
+.text-particle.particle-0 { top: 20%; left: 10%; animation-delay: 0.1s; }
+.text-particle.particle-1 { top: 40%; left: 20%; animation-delay: 0.2s; }
+.text-particle.particle-2 { top: 70%; left: 15%; animation-delay: 0.15s; }
+.text-particle.particle-3 { top: 30%; left: 80%; animation-delay: 0.25s; }
+.text-particle.particle-4 { top: 60%; left: 90%; animation-delay: 0.1s; }
+.text-particle.particle-5 { top: 80%; left: 60%; animation-delay: 0.2s; }
+.text-particle.particle-6 { top: 10%; left: 50%; animation-delay: 0.3s; }
+.text-particle.particle-7 { top: 50%; left: 30%; animation-delay: 0.15s; }
+
+@keyframes particle-float {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(
+      calc(var(--direction-x, 1) * 20px),
+      calc(var(--direction-y, -1) * 40px)
+    ) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Set random directions for particles */
+.text-particle.particle-0 { --direction-x: 1; --direction-y: -1; }
+.text-particle.particle-1 { --direction-x: -1; --direction-y: -1; }
+.text-particle.particle-2 { --direction-x: 1; --direction-y: 1; }
+.text-particle.particle-3 { --direction-x: -1; --direction-y: 1; }
+.text-particle.particle-4 { --direction-x: 0.7; --direction-y: -1; }
+.text-particle.particle-5 { --direction-x: -0.7; --direction-y: -1; }
+.text-particle.particle-6 { --direction-x: 0.7; --direction-y: 1; }
+.text-particle.particle-7 { --direction-x: -0.7; --direction-y: 1; }
+
+/* Animated text content */
+.animated-text-content {
+  width: 100%;
+  height: 100%;
+}
+
+.animated-text-content > * {
+  animation: text-fade-in 0.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes text-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply staggered animation delay to child elements */
+.animated-text-content > *:nth-child(1) { animation-delay: 0.1s; }
+.animated-text-content > *:nth-child(2) { animation-delay: 0.2s; }
+.animated-text-content > *:nth-child(3) { animation-delay: 0.3s; }
+.animated-text-content > *:nth-child(4) { animation-delay: 0.4s; }
+.animated-text-content > *:nth-child(5) { animation-delay: 0.5s; }
+.animated-text-content > *:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* Heading styles */
+.info-text-box .info-text-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.info-text-box .info-text-heading {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  margin-top: 0.8rem;
+  color: var(--text-primary);
+}
+
+.info-text-box .info-text-paragraph {
+  margin-bottom: 0.4rem;
+}
+
+/* Remove default margins from the first heading element */
+.info-text-box .info-text-title:first-child,
+.info-text-box .info-text-heading:first-child {
+  margin-top: 0;
+}
+
+/* Reset margins for paragraphs */
+.info-text-box p {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.info-text-box:hover {
+  box-shadow: 0 8px 20px var(--border-color);
+  transform: translateY(-2px);
+}
+
+/* Dark mode styles */
+body.dark-mode .info-text-box {
+  background-color: var(--bg-accent);
+  border: none;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), 
+              0 0 1px 1px rgba(255, 255, 255, 0.05),
+              inset 0 0 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+body.dark-mode .info-text-box:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
+              0 0 2px 1px rgba(255, 255, 255, 0.07),
+              inset 0 0 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+body.dark-mode .info-text-box-container.animating .info-text-box {
+  border-color: transparent;
+  box-shadow: 0 6px 20px var(--accent-color), 
+              0 0 15px rgba(var(--accent-rgb), 0.3),
+              inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Show More/Less button */
+.content-toggle {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 8px;
+  border-top: 1px solid var(--border-color);
+  color: var(--accent-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  width: 100%; /* Ensure full width */
+  visibility: visible; /* Ensure visibility */
+  opacity: 1; /* Ensure opacity */
+}
+
+.content-toggle::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--accent-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  opacity: 0.7;
+}
+
+.content-toggle:hover {
+  color: var(--accent-hover);
+}
+
+.content-toggle:hover::before {
+  transform: scaleX(0.5);
+}
+
+.truncated-content {
+  position: relative;
+  /* We don't need max-height here anymore as we're animating with Framer Motion */
+}
+
+.truncated-content::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--bg-secondary));
+  pointer-events: none;
+}
+
+body.dark-mode .truncated-content::after {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--bg-accent));
+}
+
+/* Gradient fade overlay - positioned absolutely now */
+.fade-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--bg-secondary) 90%);
+  pointer-events: none;
+  z-index: 2;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+  visibility: visible; /* Ensure visibility */
+}
+
+body.dark-mode .fade-overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--bg-accent) 90%);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1200px) {
+  .info-text-box-container {
+    width: 100%;
+    padding: 0 1rem 1rem;
+    margin-right: 0;
+  }
+  
+  .info-text-box {
+    min-height: 80px;
+    max-height: 200px;
+  }
+  
+  .info-text-box.no-scroll {
+    max-height: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .info-text-box-container {
+    padding: 0 0.8rem 0.8rem;
+  }
+}

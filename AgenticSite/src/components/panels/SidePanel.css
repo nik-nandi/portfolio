@@ -1,0 +1,180 @@
+/* Side panel specific styles */
+.secondary-box {
+  flex: 1;
+  height: 23.1vh; /* Exactly 33% of 70vh main console */
+  min-height: unset;
+  max-height: unset;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--border-color);
+  display: flex;
+  flex-direction: column;
+  transition: height 0.3s ease, flex 0.3s ease, width 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  width: 100%;
+  cursor: pointer; /* Add cursor pointer to indicate the panel is interactive */
+  border: 1px solid transparent; /* Add transparent border to prevent shifting on hover */
+}
+
+.secondary-box.expanded {
+  height: auto;
+  flex: 3;
+  z-index: 15;
+  width: 200%; /* Combined horizontal expansion */
+}
+
+.secondary-box .chat-header {
+  padding: 8px 12px;
+  background-color: var(--accent-color);
+  color: var(--bg-secondary);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expand-controls {
+  display: flex;
+  align-items: center;
+}
+
+.expand-indicator {
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 8px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.expand-indicator:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.secondary-box .messages-container {
+  padding: 10px;
+  overflow-y: auto;
+  max-height: calc(23.1vh - 38px); /* Adjusted for header height */
+  transition: max-height 0.3s ease;
+}
+
+.secondary-box .messages-container.expanded {
+  max-height: calc(70vh - 38px); /* Use the same height as the main panel */
+  padding: 5px 5px 0px 5px; /* Reduced padding on bottom */
+}
+
+/* Weather and News specific adjustments for expanded state */
+.weather-panel.expanded .messages-container.expanded,
+.news-panel.expanded .messages-container.expanded {
+  padding-top: 3px;
+  padding-bottom: 0px; /* Remove bottom padding completely */
+}
+
+/* Fix for gap at bottom of message container */
+.secondary-box .message.ai-message {
+  margin-bottom: 0; /* Remove bottom margin from messages */
+}
+
+/* Fill available space in expanded state */
+.secondary-box.expanded .messages-container.expanded .section-content {
+  margin-bottom: 0; /* Remove bottom margin from section content */
+}
+
+/* Ensure non-expanded panels shrink when another is expanded */
+.side-panels:has(.secondary-box.expanded) .secondary-box:not(.expanded) {
+  flex: 0.5;
+}
+
+/* Panel expansion adjustments for container */
+.side-panels:has(.secondary-box.expanded) {
+  width: 40%; /* Use the combined width for all expansions */
+}
+
+/* Small text styles for side panels */
+.side-panels .section-content,
+.side-panels .section-title,
+.side-panels .message-text,
+.side-panels .structured-response {
+  font-size: 0.85rem; /* Smaller font size for side panel content */
+}
+
+.side-panels .section-title {
+  padding-bottom: 2px; /* Less padding for titles in side panels */
+}
+
+/* Responsive styles for side panels */
+@media screen and (max-width: 1200px) {
+  .side-panels .chat-container {
+    width: calc(33.33% - 10px);
+    height: 200px;
+  }
+  
+  .side-panels .chat-container.expanded {
+    width: 100%;
+    height: auto;
+    order: -1;
+  }
+  
+  .side-panels:has(.secondary-box.expanded) .secondary-box:not(.expanded) {
+    width: calc(50% - 10px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .side-panels .chat-container {
+    width: calc(50% - 10px);
+  }
+  
+  .side-panels:has(.secondary-box.expanded) .secondary-box:not(.expanded) {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .side-panels .chat-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+/* Add visual feedback for hover to indicate double-click functionality */
+.secondary-box:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  border: 1px solid var(--accent-color);
+}
+
+/* Add a subtle animation for double-click feedback */
+.secondary-box:active {
+  transform: scale(0.98);
+  transition: transform 0.1s;
+  box-shadow: 0 4px 8px var(--border-color);
+}
+
+/* Add a subtle glow effect on hover */
+.secondary-box:hover:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 15px 2px var(--accent-color);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Header hover effect */
+.secondary-box:hover .chat-header {
+  background-color: var(--accent-color);
+  filter: brightness(1.1);
+}
+
+.secondary-box.expanded:hover {
+  transform: translateY(-2px); /* Smaller transform for expanded panels */
+}

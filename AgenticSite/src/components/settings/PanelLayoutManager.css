@@ -1,0 +1,355 @@
+.panel-layout-manager {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.panel-layout-description {
+  margin-bottom: 1.5rem;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.console-preview {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--border-color);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.console-preview:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--border-color);
+}
+
+.console-preview-container {
+  display: flex;
+  gap: 15px;
+  min-height: 400px;
+  position: relative;
+}
+
+.panel-container {
+  width: 25%;
+  background-color: var(--bg-accent);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.panel-container.drop-hover {
+  background-color: rgba(var(--bg-accent-rgb), 0.7);
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.panel-container-title {
+  font-size: var(--font-size-sm);
+  text-align: center;
+  padding-bottom: 0.75rem;
+  margin: 0;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.panel-item {
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: move;
+  position: relative;
+  box-shadow: 0 2px 4px var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.panel-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--border-color);
+}
+
+.panel-item.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+.panel-item.disabled {
+  opacity: 0.6;
+}
+
+.panel-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.panel-item-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.panel-item-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel-item-handle {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px;
+  cursor: ns-resize; /* This cursor indicates vertical movement */
+}
+
+.panel-handle-line {
+  width: 25px;
+  height: 2px;
+  background-color: var(--border-color);
+  border-radius: 1px;
+}
+
+.main-panel-preview {
+  flex: 2;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px var(--border-color);
+}
+
+.main-panel-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-panel-header {
+  padding: 12px 16px;
+  background-color: var(--bg-accent);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.main-panel-messages {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.message-preview {
+  height: 30px;
+  border-radius: 18px;
+  margin-bottom: 5px;
+}
+
+.message-preview.user {
+  width: 40%;
+  background-color: var(--accent-color);
+  opacity: 0.7;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.message-preview.ai {
+  width: 50%;
+  background-color: var(--bg-accent);
+  opacity: 0.7;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.message-preview.short {
+  width: 25%;
+}
+
+.message-preview.long {
+  width: 70%;
+  height: 60px;
+}
+
+.main-panel-input {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+}
+
+.main-panel-input::before {
+  content: '';
+  display: block;
+  height: 36px;
+  width: 100%;
+  background-color: var(--bg-accent);
+  opacity: 0.7;
+  border-radius: 18px;
+}
+
+/* Toggle switch styling */
+.panel-toggle {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.panel-toggle-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.panel-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-accent);
+  transition: .3s;
+  border-radius: 20px;
+}
+
+.panel-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--bg-secondary);
+  transition: .3s;
+  border-radius: 50%;
+}
+
+.panel-toggle-checkbox:checked + .panel-toggle-slider {
+  background-color: var(--accent-color);
+}
+
+.panel-toggle-checkbox:checked + .panel-toggle-slider:before {
+  transform: translateX(16px);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1200px) {
+  .console-preview-container {
+    flex-direction: column;
+  }
+  
+  .panel-container {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .panel-container-title {
+    width: 100%;
+  }
+  
+  .panel-item {
+    width: calc(50% - 10px);
+  }
+  
+  .main-panel-preview {
+    order: -1;
+    min-height: 240px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .panel-item {
+    width: 100%;
+  }
+}
+
+/* Dark mode styles */
+body.dark-mode .console-preview {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .panel-container {
+  background-color: var(--bg-accent);
+}
+
+body.dark-mode .panel-item {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .main-panel-preview {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .main-panel-header {
+  background-color: var(--bg-accent);
+}
+
+body.dark-mode .message-preview.ai {
+  background-color: var(--bg-accent);
+}
+
+body.dark-mode .message-preview.user {
+  background-color: var(--accent-color);
+}
+
+.panel-item:hover {
+  opacity: 1;
+}
+
+/* Add vertical indicators when hovering between items */
+.panel-container:not(.drop-hover) .panel-item:not(.dragging):hover::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-color);
+  z-index: 10;
+}
+
+.panel-container:not(.drop-hover) .panel-item:not(.dragging):hover::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-color);
+  z-index: 10;
+}
+
+/* Add a subtle animation for the handle when hovering */
+.panel-item:hover .panel-item-handle {
+  transform: translateY(1px);
+  transition: transform 0.2s ease;
+}
+
+.panel-item:hover .panel-handle-line {
+  background-color: var(--accent-color);
+}
+
+/* Panel item relative positioning for the before/after indicators */
+.panel-item {
+  position: relative;
+  /* ...existing styles... */
+}
+
+/* Enhanced transition for dragging */
+.panel-item.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}

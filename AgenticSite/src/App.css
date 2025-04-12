@@ -1,0 +1,307 @@
+:root {
+  /* Color variables */
+  --onyx: #474448ff;
+  --raisin-black: #2d232eff;
+  --bone: #e0ddcfff;
+  --wenge: #534b52ff;
+  --isabelline: #f1f0eaff;
+
+  /* App colors - light mode (default) */
+  --bg-primary: var(--isabelline);
+  --bg-secondary: white;
+  --bg-accent: var(--bone);
+  --text-primary: var(--raisin-black);
+  --text-secondary: var(--onyx);
+  --accent-color: var(--wenge);
+  --border-color: rgba(0, 0, 0, 0.1);
+  
+  /* Font families */
+  --font-primary: "Space Mono", monospace;
+  --font-headings: "Space Mono", monospace;
+  --font-mono: "Space Mono", monospace;
+  
+  /* Font styles */
+  --font-style-normal: normal;
+  --font-style-italic: italic;
+  
+  /* Font sizes */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Space Mono specific classes */
+  --font-space-mono-regular: 400;
+  --font-space-mono-bold: 700;
+
+  /* Additional variables */
+  --bg-accent-rgb: 224, 221, 207; /* bone color in RGB */
+  --math-symbol-color: var(--accent-color);
+  --math-variable-color: var(--text-primary);
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-accent: #2d2d2d;
+  --text-primary: #f0f0f0;
+  --text-secondary: #cccccc;
+  --accent-color: #444054;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Space Mono Font Classes */
+.space-mono-regular {
+  font-family: var(--font-primary);
+  font-weight: var(--font-space-mono-regular);
+  font-style: var(--font-style-normal);
+}
+
+.space-mono-bold {
+  font-family: var(--font-primary);
+  font-weight: var(--font-space-mono-bold);
+  font-style: var(--font-style-normal);
+}
+
+.space-mono-regular-italic {
+  font-family: var(--font-primary);
+  font-weight: var(--font-space-mono-regular);
+  font-style: var(--font-style-italic);
+}
+
+.space-mono-bold-italic {
+  font-family: var(--font-primary);
+  font-weight: var(--font-space-mono-bold);
+  font-style: var(--font-style-italic);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Apply heading font styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+  line-height: var(--line-height-tight);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-space-mono-bold);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-space-mono-bold);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-space-mono-regular);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-space-mono-bold);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-space-mono-regular);
+}
+
+h6 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-space-mono-bold);
+}
+
+/* Update existing heading classes */
+.app-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-space-mono-bold);
+}
+
+/* Code styling */
+code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-space-mono-regular);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px var(--border-color);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links li {
+  margin-left: 1.5rem;
+}
+
+.nav-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent-color);
+}
+
+.content {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.footer {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  box-shadow: 0 -2px 4px var(--border-color);
+}
+
+/* Darkmode Toggle */
+.dark-mode-toggle {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+}
+
+.dark-mode-toggle:hover {
+  background-color: var(--bg-accent);
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(20px);
+  font-size: 24px;
+}
+
+.scroll-to-top.visible {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  opacity: 1;
+}
+
+/* Responsive Media Queries */
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 1rem;
+  }
+  
+  .nav-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .nav-links li {
+    margin: 0 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 1rem;
+  }
+  
+  .feature-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .scroll-to-top {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    bottom: 15px;
+    right: 15px;
+  }
+}

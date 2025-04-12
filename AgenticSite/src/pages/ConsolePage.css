@@ -1,0 +1,128 @@
+/* Console page layout styles */
+.console-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+/* Add new console layout container */
+.console-layout {
+  display: flex;
+  width: 100%;
+  max-width: 1850px; /* Increased from 1600px to accommodate the text box */
+  gap: 10px; /* Reduced from 20px to save space */
+  align-items: flex-start; /* Align items at the top */
+  position: relative; /* Add position relative for absolute positioning context */
+  margin-right: 1200px;
+}
+
+/* Position the text box to the left */
+.info-text-box-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Updated side panels and layout styling - center the main content */
+.console-outer-container {
+  display: flex;
+  flex: 1;
+  min-width: 0; /* Prevent overflow issues */
+  gap: 15px; /* Slightly reduced gap */
+  margin: 0 auto; /* Center the container */
+  margin-left: 200px; /* Reduced from 240px to move UI left */
+  max-width: 1600px; /* Original max-width before text box was added */
+}
+
+/* Style for the side panels container */
+.side-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 20%;
+  min-width: 220px; /* Add minimum width to prevent squishing */
+  transition: width 0.3s ease;
+}
+
+/* Combined expansion styling - both vertical and horizontal together */
+.side-panels:has(.secondary-box.expanded) {
+  width: 40%;
+  min-width: 420px; /* Increased minimum width for expanded state */
+}
+
+/* Effects on main container when side panels expand */
+.right-panels:has(.secondary-box.expanded) + .main-container,
+.main-container + .right-panels:has(.secondary-box.expanded),
+.left-panels:has(.secondary-box.expanded) + .main-container {
+  flex: 2;
+}
+
+/* Main container (middle) */
+.main-container {
+  flex: 3;
+  transition: flex 0.3s ease;
+  min-width: 650px; /* Prevent overflow issues */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+  .console-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .info-text-box-container {
+    position: relative; /* Reset to normal flow */
+    width: 100%;
+    max-width: 1600px; /* Match max-width of console outer container */
+  }
+
+  .console-outer-container {
+    flex-direction: column;
+    margin-left: 0; /* Reset margin since text box is above */
+    width: 100%;
+    max-width: 1600px;
+  }
+  
+  .side-panels {
+    width: 100%;
+    min-width: 0; /* Reset min-width for responsive layout */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .side-panels:has(.secondary-box.expanded) {
+    width: 100%;
+    min-width: 0; /* Reset min-width for responsive layout */
+    flex-direction: column;
+  }
+  
+  .side-panels .chat-container {
+    width: calc(33.33% - 10px);
+    height: 200px;
+  }
+  
+  .main-container {
+    order: -1; /* Move main container to top on smaller screens */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .console-page {
+    padding: 1rem 0;
+  }
+
+  .side-panels .chat-container {
+    width: calc(50% - 10px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .side-panels .chat-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}

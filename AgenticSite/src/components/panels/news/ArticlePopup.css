@@ -1,0 +1,200 @@
+.article-popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.article-popup-backdrop.dark {
+  background-color: rgba(26, 32, 44, 0.9); /* Dark Slate with opacity */
+}
+
+.article-popup-content {
+  background-color: var(--news-bg, #edf6f9ff);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.article-popup-content.dark {
+  background-color: var(--news-dark-secondary, #2d3748ff);
+  color: var(--news-dark-text, #e2e8f0ff);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 109, 119, 0.7); /* Caribbean Current with opacity */
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.close-button:hover {
+  background-color: var(--news-highlight, #e29578ff);
+}
+
+.article-popup-content.dark .close-button {
+  background-color: rgba(66, 86, 100, 0.7); /* Charcoal Blue with opacity */
+}
+
+.article-popup-content.dark .close-button:hover {
+  background-color: var(--news-dark-accent, #425664ff);
+}
+
+.article-popup-image {
+  width: 100%;
+  height: 240px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.article-popup-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.article-popup-body {
+  padding: 20px;
+}
+
+.article-popup-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--news-text, #006d77ff);
+}
+
+.article-popup-content.dark .article-popup-title {
+  color: var(--news-dark-text, #e2e8f0ff);
+}
+
+.article-popup-date {
+  font-size: 0.85rem;
+  color: var(--news-accent, #006d77ff);
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.article-popup-content.dark .article-popup-date {
+  color: var(--news-dark-highlight, #718096ff);
+}
+
+.article-popup-description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.article-popup-content.dark .article-popup-description {
+  color: var(--news-dark-text, #e2e8f0ff); /* Light Silver for readability */
+}
+
+.article-popup-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.read-more-button {
+  background-color: var(--news-accent, #006d77ff);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.read-more-button:hover {
+  background-color: var(--news-highlight, #e29578ff);
+  transform: translateY(-2px);
+}
+
+.article-popup-content.dark .read-more-button {
+  background-color: var(--news-dark-accent, #425664ff);
+}
+
+.article-popup-content.dark .read-more-button:hover {
+  background-color: var(--news-dark-highlight, #718096ff);
+}
+
+.show-more-button {
+  background-color: transparent;
+  color: var(--news-accent, #006d77ff);
+  border: 1px solid var(--news-accent, #006d77ff);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.show-more-button:hover {
+  background-color: rgba(0, 109, 119, 0.1);
+  transform: translateY(-2px);
+}
+
+.article-popup-content.dark .show-more-button {
+  color: var(--news-dark-highlight, #718096ff);
+  border-color: var(--news-dark-highlight, #718096ff);
+}
+
+.article-popup-content.dark .show-more-button:hover {
+  background-color: rgba(113, 128, 150, 0.2);
+}
+
+@media (max-width: 768px) {
+  .article-popup-content {
+    max-width: 90%;
+  }
+  
+  .article-popup-image {
+    height: 180px;
+  }
+  
+  .article-popup-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-popup-image {
+    height: 150px;
+  }
+  
+  .article-popup-title {
+    font-size: 1.1rem;
+  }
+  
+  .article-popup-body {
+    padding: 15px;
+  }
+}
