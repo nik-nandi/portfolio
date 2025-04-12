@@ -9,7 +9,7 @@
 
 </div>
 
-Welcome to my professional portfolio! This repository showcases a collection of projects demonstrating my skills in web development, machine learning, data analysis, and more.
+Welcome to my portfolio! This repository showcases a collection of projects demonstrating my skills in web development, machine learning, data analysis, and more.
 
 ## 📂 Repository Structure
 
