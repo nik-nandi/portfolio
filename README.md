@@ -24,7 +24,7 @@ Welcome to my professional portfolio! This repository showcases a collection of 
 </div>
 
 ```
-Paper on Marine Lamprey EcosystemsPaper on Ecosystem FunctionsPaper on Ecosystem Functions├── AgenticSite/              # React-based website project
+├── AgenticSite/              # React-based website project
 │   ├── public/               # Static files and assets
 │   ├── src/                  # Source code 
 │   │   ├── components/       # UI components including DarkModeToggle, MathRenderer, etc.
